@@ -1,9 +1,9 @@
 {
-  "name": "@sharadox/template-web-library",
+  "name": "@sharadox/web-library",
   "version": "0.1.0",
-  "description": "The skeleton every Sharadox web library starts from.",
-  "private": true,
-  "license": "UNLICENSED",
+  "description": "Generic building blocks for web applications: internationalization, search engine metadata, animation, time and forms.",
+  "private": false,
+  "license": "SEE LICENSE IN LICENCA.md",
   "author": "Sharadox <email@sharadox.com>",
   "type": "module",
   "exports": {
@@ -21,7 +21,10 @@
     }
   },
   "files": [
-    "distribution"
+    "distribution",
+    "LICENCA.md",
+    "LICENSE.md",
+    "NOTICE.md"
   ],
   "sideEffects": [
     "**/*.css"
@@ -31,7 +34,7 @@
   },
   "packageManager": "pnpm@10.34.9",
   "publishConfig": {
-    "access": "restricted"
+    "access": "public"
   },
   "peerDependencies": {
     "react": ">=19"
@@ -82,5 +85,10 @@
     "typescript": "6.0.3",
     "typescript-eslint": "^8.72.2",
     "vitest": "^5.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sharadox/web-library.git"
+  },
+  "homepage": "https://github.com/Sharadox/web-library#readme"
 }

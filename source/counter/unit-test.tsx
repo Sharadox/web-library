@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import { expect, it } from "vitest";
-import { Counter } from "@sharadox/template-web-library/counter";
+import { Counter } from "@sharadox/web-library/counter";
 
 it("counts clicks and accepts a class name", () => {
   render(<Counter label="Clicks" className="custom" />);

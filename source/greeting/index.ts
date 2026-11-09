@@ -1,4 +1,4 @@
-import type { GreetingOptions } from "@sharadox/template-web-library/greeting/type";
+import type { GreetingOptions } from "@sharadox/web-library/greeting/type";
 
 /** An example function: replace it with the library's first real piece. */
 export function greeting({ name, language = "en" }: GreetingOptions): string {

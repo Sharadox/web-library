@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import type { CounterProperties } from "@sharadox/template-web-library/counter/type";
+import type { CounterProperties } from "@sharadox/web-library/counter/type";
 import styles from "./index.module.scss";
 
 /** An example client component with a CSS module: restyle it through `className`. */

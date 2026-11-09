@@ -1,5 +1,5 @@
 import { expect, it } from "vitest";
-import { greeting } from "@sharadox/template-web-library/greeting";
+import { greeting } from "@sharadox/web-library/greeting";
 
 it("greets in English and Portuguese", () => {
   expect(greeting({ name: "Ana" })).toBe("Hello, Ana!");

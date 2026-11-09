@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { greeting } from "@sharadox/template-web-library/greeting";
+import { greeting } from "@sharadox/web-library/greeting";
 
 test("a greeting takes well under a millisecond", async ({ bench }) => {
   const result = await bench("greeting", () => greeting({ name: "Ana", language: "pt" })).run();
