@@ -1,7 +1,8 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["source/*/index.ts", "source/*/index.tsx"],
+  "entryPoints": ["source/**/index.ts", "source/**/index.tsx"],
   "exclude": ["**/*unit-test.*", "**/*benchmark-test.*"],
   "out": "documentation",
-  "readme": "README.md"
+  "readme": "README.md",
+  "entryPointStrategy": "expand"
 }
