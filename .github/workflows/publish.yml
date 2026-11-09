@@ -1,0 +1,42 @@
+# Releases a `v<version>` tag on index to npm with the organisation's NPM_TOKEN. Public packages are published with
+# provenance; private (restricted) packages without it, since npm only attests public packages.
+name: Publish
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: write
+  id-token: write
+env:
+  HUSKY: 0
+  TURBO_TOKEN: ${{ secrets.TURBOREPO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBOREPO_TEAM || 'sharadox' }}
+  TURBO_REMOTE_CACHE_SIGNATURE_KEY: ${{ secrets.TURBOREPO_REMOTE_CACHE_SIGNATURE_KEY }}
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with: { fetch-depth: 0 }
+      - name: Check the tag is on index and matches package.json
+        run: |
+          git merge-base --is-ancestor "$GITHUB_SHA" origin/index || { echo "::error::Tags must point at a commit on index."; exit 1; }
+          version="v$(node -p 'require("./package.json").version')"
+          [ "$version" = "$GITHUB_REF_NAME" ] || { echo "::error::Tag $GITHUB_REF_NAME does not match package.json ($version)."; exit 1; }
+          [ "$(node -p 'require("./package.json").private === true')" = false ] || { echo "::error::package.json says private: true, so it can't be published."; exit 1; }
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with: { node-version-file: .node-version, cache: pnpm, registry-url: "https://registry.npmjs.org" }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec turbo run format:check lint type-check test:unit build
+      - run: pnpm pack
+      - name: Publish to npm
+        env: { NODE_AUTH_TOKEN: "${{ secrets.NPM_TOKEN }}" }
+        run: |
+          access="$(node -p 'require("./package.json").publishConfig.access')"
+          if [ "$access" = public ]; then npm publish ./*.tgz --access public --provenance; else npm publish ./*.tgz --access restricted; fi
+      - name: Attach the package to a GitHub release
+        env: { GH_TOKEN: "${{ github.token }}" }
+        run: gh release create "$GITHUB_REF_NAME" ./*.tgz --title "$GITHUB_REF_NAME" --generate-notes || gh release upload "$GITHUB_REF_NAME" ./*.tgz --clobber

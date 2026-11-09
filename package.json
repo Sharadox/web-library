@@ -1,0 +1,86 @@
+{
+  "name": "@sharadox/template-web-library",
+  "version": "0.1.0",
+  "description": "The skeleton every Sharadox web library starts from.",
+  "private": true,
+  "license": "UNLICENSED",
+  "author": "Sharadox <email@sharadox.com>",
+  "type": "module",
+  "exports": {
+    "./*/type": {
+      "sharadox-source": "./source/*/type.ts",
+      "types": "./distribution/*/type.d.ts"
+    },
+    "./*": {
+      "sharadox-source": [
+        "./source/*/index.ts",
+        "./source/*/index.tsx"
+      ],
+      "types": "./distribution/*/index.d.ts",
+      "default": "./distribution/*/index.js"
+    }
+  },
+  "files": [
+    "distribution"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.34.9",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "peerDependencies": {
+    "react": ">=19"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "scripts": {
+    "build": "rm -rf distribution && tsc -p tsconfig.build.json && sass --no-source-map source:distribution && node script/rewrite-style-import/index.ts",
+    "lint": "eslint --max-warnings=0 .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "type-check": "tsc --noEmit",
+    "test:unit": "vitest run",
+    "test:benchmark": "vitest bench --run --passWithNoTests",
+    "documentation": "typedoc",
+    "verify": "turbo run format:check lint type-check test:unit test:benchmark build",
+    "prepare": "husky || true"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,mjs,cjs}": [
+      "prettier --write",
+      "eslint --fix --max-warnings=0"
+    ],
+    "*.{json,md,yml,yaml,scss}": "prettier --write"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "eslint": "9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "happy-dom": "^21.0.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
+    "prettier": "^3.9.10",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sass": "^1.108.1",
+    "turbo": "^2.11.10",
+    "typedoc": "^0.28.20",
+    "typescript": "6.0.3",
+    "typescript-eslint": "^8.72.2",
+    "vitest": "^5.1.0"
+  }
+}
