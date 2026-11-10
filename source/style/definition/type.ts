@@ -20,6 +20,11 @@ export interface StyleConfiguration {
   fallback: ColorScheme;
   /** Browser storage key that remembers a manual choice. */
   storageKey: string;
+  /**
+   * The choice before the visitor picks one: "system" (follow the device, the default when left out) or a style
+   * name, such as "black" to open in Black whatever the device prefers.
+   */
+  defaultChoice?: string;
 }
 
 /** What the visitor picked: "system" (follow the device) or a style name. */

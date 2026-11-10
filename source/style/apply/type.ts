@@ -7,4 +7,6 @@ export interface StyleApplyData {
   schemes: Record<string, ColorScheme>;
   defaults: Record<ColorScheme, string>;
   fallback: ColorScheme;
+  /** "system" or a style name: used when nothing is remembered. */
+  defaultChoice: string;
 }

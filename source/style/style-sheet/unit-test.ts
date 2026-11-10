@@ -11,3 +11,9 @@ it("writes every style plus a fallback that follows the device", () => {
     ':root[data-style="midnight"]{--background:#001;--foreground:#eef;color-scheme:dark}',
   ]);
 });
+
+it("starts from the default style, without following the device, when one is set", () => {
+  const sheet = styleSheet({ ...CONFIGURATION, defaultChoice: "black" }).split("\n");
+  expect(sheet[0]).toBe(":root{--background:#000;--foreground:#fff;color-scheme:dark}");
+  expect(sheet.some((line) => line.includes("prefers-color-scheme"))).toBe(false);
+});
