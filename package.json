@@ -1,10 +1,10 @@
 {
   "name": "@sharadox/web-library",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Generic building blocks for web applications: internationalization, styles, search engine metadata, animation, time and forms.",
   "private": false,
   "license": "SEE LICENSE IN LICENCA.md",
-  "author": "Sharadox <email@sharadox.com>",
+  "author": "Sharadox <contact@sharadox.com>",
   "type": "module",
   "exports": {
     "./*/type": {
