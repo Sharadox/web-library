@@ -3,5 +3,5 @@ export interface LocaleRedirect {
   source: string;
   destination: string;
   permanent: false;
-  has?: { type: "header"; key: string; value: string }[];
+  has?: { type: "header" | "cookie"; key: string; value: string }[];
 }
