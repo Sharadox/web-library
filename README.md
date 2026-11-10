@@ -14,6 +14,8 @@ Import each piece by its path:
 | `search-engine/`        | `sitemap` (`localizedSitemap`), `robots`, `structured-data` (JSON-LD component)                                                                                                                                  |
 | `animation/`            | `reveal`, `scroll-word` (text that lights up word by word), `in-view`, `count-up`, `marquee` (endless strip you can also drag), `smooth-scroll`                                                                  |
 | `style/`                | `definition` (`resolveStyle`), `style-script` (`<StyleScript>` for `<head>`: every style's CSS variables and the no-flash script), `use-style` (picker hook), `apply`, `style-sheet`                             |
+| `scroll/`               | `active-section` (which section is on screen, and how far through the page)                                                                                                                                      |
+| `privacy/`              | `consent` (cookie answers: kept when accepted or chosen, for this visit only when denied; `hasConsent`, `openConsent`), `use-consent` (hook)                                                                     |
 | `pointer/`              | `spotlight` (pointer position as CSS variables), `tilt` (3D tilt towards the pointer)                                                                                                                            |
 | `time/`                 | `zone-minute`, `format-time`, `sun-time` (sunrise and sunset), `sun-today` (React hook), `open-state`                                                                                                            |
 | `form/`                 | `rate-limit`, `bot-check` (honeypot and fill time), `field`                                                                                                                                                      |
@@ -29,7 +31,7 @@ import { translate } from "@sharadox/web-library/internationalization/translate"
 <Reveal delay={0.1}>{translate({ en: "Hello", pt: "Olá" }, locale)}</Reveal>;
 ```
 
-Styles are what other projects call themes: any number of dark and light styles, a default for each scheme, "system" as the default choice, and a manual choice remembered in browser storage.
+Styles are what other projects call themes: any number of dark and light styles, a default for each scheme, "system" or a fixed style as the default choice, and a manual choice remembered in browser storage.
 
 React components are client components (`"use client"`), accept `className`, and can be restyled per site. React (and, for `test/`, Playwright) are optional peer dependencies.
 

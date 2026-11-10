@@ -1,3 +1,4 @@
+import { defaultStyleChoice } from "@sharadox/web-library/style/definition";
 import type { StyleConfiguration } from "@sharadox/web-library/style/definition/type";
 import type { StyleApplyData } from "@sharadox/web-library/style/apply/type";
 
@@ -8,23 +9,25 @@ export function styleApplyData(configuration: StyleConfiguration): StyleApplyDat
     schemes: Object.fromEntries(configuration.styles.map((style) => [style.name, style.scheme])),
     defaults: { ...configuration.defaults },
     fallback: configuration.fallback,
+    defaultChoice: defaultStyleChoice(configuration),
   };
 }
 
 /**
  * Writes the style to `<html>`: `data-style` (the style in use), `data-style-choice` and `color-scheme`.
- * Without a `choice` it reads the remembered one (or "system"). It is self-contained on purpose: the inline
+ * Without a `choice` it reads the remembered one (or the default choice). It is self-contained on purpose: the inline
  * script in `<head>` embeds its source, so the page never shows the wrong style before React loads.
  */
 export function applyStyle(data: StyleApplyData, choice?: string): void {
   let wanted = choice;
   if (wanted === undefined) {
     try {
-      wanted = localStorage.getItem(data.storageKey) || "system";
+      wanted = localStorage.getItem(data.storageKey) || data.defaultChoice;
     } catch {
-      wanted = "system";
+      wanted = data.defaultChoice;
     }
   }
+  if (wanted !== "system" && !data.schemes[wanted]) wanted = data.defaultChoice;
   if (wanted !== "system" && !data.schemes[wanted]) wanted = "system";
   let name = wanted;
   if (wanted === "system") {
