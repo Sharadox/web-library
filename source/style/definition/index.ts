@@ -7,6 +7,12 @@ export const STYLE_ATTRIBUTE = "data-style";
 /** `<html>` attribute holding the visitor's choice ("system" or a style name), for the picker. */
 export const STYLE_CHOICE_ATTRIBUTE = "data-style-choice";
 
+/** The configuration's starting choice: its `defaultChoice` when it names a style, otherwise "system". */
+export function defaultStyleChoice(configuration: StyleConfiguration): string {
+  const choice = configuration.defaultChoice;
+  return choice && configuration.styles.some((style) => style.name === choice) ? choice : SYSTEM_STYLE;
+}
+
 /** Finds a style by name. */
 export function findStyle(configuration: StyleConfiguration, name: string): StyleDefinition | undefined {
   return configuration.styles.find((style) => style.name === name);

@@ -53,3 +53,17 @@ it("choosing remembers the style, and choosing system forgets it", async () => {
   expect(localStorage.getItem("style")).toBeNull();
   expect(result.current).toMatchObject({ choice: "system", style: "black" });
 });
+
+it("a configuration can open in a fixed style; then System is remembered like any other choice", async () => {
+  prefersLight(true);
+  const configuration = { ...CONFIGURATION, defaultChoice: "black" };
+  new Function(styleScript(configuration))();
+  expect(root.getAttribute("data-style")).toBe("black");
+  expect(root.getAttribute("data-style-choice")).toBe("black");
+  const { result } = renderHook(() => useStyle(configuration));
+  await act(async () => result.current.choose("system"));
+  expect(localStorage.getItem("style")).toBe("system");
+  expect(result.current.style).toBe("white");
+  await act(async () => result.current.choose("black"));
+  expect(localStorage.getItem("style")).toBeNull();
+});
