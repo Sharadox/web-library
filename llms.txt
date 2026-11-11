@@ -14,4 +14,4 @@
 - math/clamp, math/radians, math/pseudo-random
 - assert/never → assertNever(value): throws; for exhaustive switches
 - Import by path: `import { isString } from "@sharadox/web-library/type-guard/is-string";`
-- Licence: Sharadox Open Source Licence 0.1.0
+- License: Sharadox Open Source License 0.1.0
