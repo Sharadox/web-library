@@ -1,40 +1,52 @@
 # @sharadox/web-library
 
-Generic building blocks for web applications, arranged by topic. When a topic grows big enough it moves into its own library (for example `internationalization-web-library`).
+The small, general utilities every Sharadox library and application imports, so even one-liners are written once: type guards, class names, HTML escaping, joining labels, math helpers and exhaustiveness checks. No dependencies.
+
+Topic code lives in its own libraries. This package used to hold it up to version 0.4. Each topic's new home:
+
+| Topic                                                                   | Library                                      |
+| ----------------------------------------------------------------------- | -------------------------------------------- |
+| Languages, translations, locale redirects and links                     | `@sharadox/internationalization-web-library` |
+| Page metadata, sitemap, robots, manifest, structured data, share images | `@sharadox/metadata-web-library`             |
+| Styles (themes)                                                         | `@sharadox/style-web-library`                |
+| Cookie consent                                                          | `@sharadox/consent-web-library`              |
+| Reveal, scroll-lit words, in-view, count-up, marquee                    | `@sharadox/animation-web-library`            |
+| Smooth scrolling, active section                                        | `@sharadox/scroll-web-library`               |
+| Spotlight, tilt, custom cursor                                          | `@sharadox/pointer-web-library`              |
+| Bot checks, rate limit, contact forms                                   | `@sharadox/form-web-library`                 |
+| Time zones, opening hours, sunrise and sunset                           | `@sharadox/time-web-library`                 |
+| Playwright helpers and shared test suites                               | `@sharadox/test-web-library`                 |
+
+## Install
 
 ```sh
 pnpm add @sharadox/web-library
 ```
 
-Import each piece by its path:
+## API
 
-| Topic                   | Pieces                                                                                                                                                                                                           |
-| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `internationalization/` | `locale` (`isLocale`, `languageTag`, `openGraphLocale`, `Translated`), `translate`, `locale-redirect` (next.config redirects: remembered language, then Accept-Language), `locale-preference` (`rememberLocale`) |
-| `search-engine/`        | `sitemap` (`localizedSitemap`), `robots`, `structured-data` (JSON-LD component)                                                                                                                                  |
-| `animation/`            | `reveal`, `scroll-word` (text that lights up word by word), `in-view`, `count-up`, `marquee` (endless strip you can also drag), `smooth-scroll`                                                                  |
-| `style/`                | `definition` (`resolveStyle`), `style-script` (`<StyleScript>` for `<head>`: every style's CSS variables and the no-flash script), `use-style` (picker hook), `apply`, `style-sheet`                             |
-| `scroll/`               | `active-section` (which section is on screen, and how far through the page)                                                                                                                                      |
-| `privacy/`              | `consent` (cookie answers: kept when accepted or chosen, for this visit only when denied; `hasConsent`, `openConsent`), `use-consent` (hook)                                                                     |
-| `pointer/`              | `spotlight` (pointer position as CSS variables), `tilt` (3D tilt towards the pointer)                                                                                                                            |
-| `time/`                 | `zone-minute`, `format-time`, `sun-time` (sunrise and sunset), `sun-today` (React hook), `open-state`                                                                                                            |
-| `form/`                 | `rate-limit`, `bot-check` (honeypot and fill time), `field`                                                                                                                                                      |
-| `html/`                 | `escape`                                                                                                                                                                                                         |
-| `math/`                 | `radians`, `clamp`, `pseudo-random`                                                                                                                                                                              |
-| `test/`                 | `visual-snapshot` (Playwright: frozen clock, settled reveals)                                                                                                                                                    |
-| —                       | `class-name`                                                                                                                                                                                                     |
+Import each utility by its path:
 
-```tsx
-import { Reveal } from "@sharadox/web-library/animation/reveal";
-import { translate } from "@sharadox/web-library/internationalization/translate";
+| Import                                       | Export                                            | Example                                              |
+| -------------------------------------------- | ------------------------------------------------- | ---------------------------------------------------- |
+| `@sharadox/web-library/type-guard/is-string` | `isString(value)`                                 | `isString("a") // true`                              |
+| `…/type-guard/is-non-empty-string`           | `isNonEmptyString(value)`                         | `isNonEmptyString("") // false`                      |
+| `…/type-guard/is-number`                     | `isNumber(value)`: finite numbers only            | `isNumber(NaN) // false`                             |
+| `…/type-guard/is-boolean`                    | `isBoolean(value)`                                | `isBoolean(false) // true`                           |
+| `…/type-guard/is-record`                     | `isRecord(value)`: plain objects only             | `isRecord([]) // false`                              |
+| `…/type-guard/is-defined`                    | `isDefined(value)`: not `null`/`undefined`        | `[1, undefined].filter(isDefined) // [1]`            |
+| `…/class-name`                               | `classNames(...names)`                            | `classNames("a", false, "b") // "a b"`               |
+| `…/html/escape`                              | `escapeHtml(text)`                                | `escapeHtml("<b>") // "&lt;b&gt;"`                   |
+| `…/text/separate`                            | `separate(separator, ...parts)`                   | `separate("•", "Contact", "Ana") // "Contact • Ana"` |
+| `…/math/clamp`                               | `clamp(value, minimum, maximum)`                  | `clamp(5, 0, 1) // 1`                                |
+| `…/math/radians`                             | `radians(degrees)`                                | `radians(180) // Math.PI`                            |
+| `…/math/pseudo-random`                       | `pseudoRandom(seed)`: repeatable number in [0, 1) | `pseudoRandom(3) === pseudoRandom(3)`                |
+| `…/assert/never`                             | `assertNever(value)`: exhaustive `switch` checks  | `default: return assertNever(kind)`                  |
 
-<Reveal delay={0.1}>{translate({ en: "Hello", pt: "Olá" }, locale)}</Reveal>;
-```
+## Develop
 
-Styles are what other projects call themes: any number of dark and light styles, a default for each scheme, "system" or a fixed style as the default choice, and a manual choice remembered in browser storage.
-
-React components are client components (`"use client"`), accept `className`, and can be restyled per site. React (and, for `test/`, Playwright) are optional peer dependencies.
+Every function is tested at 100% coverage (`pnpm test:unit`). `pnpm verify` runs formatting, lint, type-check, tests and the build. Branches follow `<feature>.development` → `development` → `index`, and releases are `v<version>` tags on `index`.
 
 ## Licence
 
-Licença Sharadox de Código Aberto, versão 0.1.0 — [português](LICENCA.md) (the binding text) · [English translation](LICENSE.md).
+Licença Sharadox de Código Aberto, versão 0.1.0. See [português](LICENCA.md) (the binding text) and the [English translation](LICENSE.md).

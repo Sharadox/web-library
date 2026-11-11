@@ -1,0 +1,17 @@
+# @sharadox/web-library
+
+> General TypeScript utilities shared by every Sharadox library (no dependencies). Topic code moved to *-web-library topic packages (internationalization, metadata, style, consent, animation, scroll, pointer, form, time, test).
+
+- type-guard/is-string → isString(value): value is string
+- type-guard/is-non-empty-string → isNonEmptyString(value)
+- type-guard/is-number → isNumber(value): finite numbers
+- type-guard/is-boolean → isBoolean(value)
+- type-guard/is-record → isRecord(value): plain objects
+- type-guard/is-defined → isDefined(value): not null/undefined
+- class-name → classNames(...names): joins truthy names
+- html/escape → escapeHtml(text)
+- text/separate → separate(separator, ...parts): "a • b", skipping empty parts
+- math/clamp, math/radians, math/pseudo-random
+- assert/never → assertNever(value): throws; for exhaustive switches
+- Import by path: `import { isString } from "@sharadox/web-library/type-guard/is-string";`
+- Licence: Sharadox Open Source Licence 0.1.0

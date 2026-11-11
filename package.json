@@ -1,7 +1,7 @@
 {
   "name": "@sharadox/web-library",
-  "version": "0.4.1",
-  "description": "Generic building blocks for web applications: internationalization, styles, search engine metadata, animation, time and forms.",
+  "version": "0.5.0",
+  "description": "General TypeScript utilities shared by every Sharadox library and application: type guards, class names, HTML escaping, text joining, math helpers and exhaustiveness checks.",
   "private": false,
   "license": "SEE LICENSE IN LICENCA.md",
   "author": "Sharadox <contact@sharadox.com>",
@@ -12,10 +12,7 @@
       "types": "./distribution/*/type.d.ts"
     },
     "./*": {
-      "sharadox-source": [
-        "./source/*/index.ts",
-        "./source/*/index.tsx"
-      ],
+      "sharadox-source": "./source/*/index.ts",
       "types": "./distribution/*/index.d.ts",
       "default": "./distribution/*/index.js"
     }
@@ -24,41 +21,28 @@
     "distribution",
     "LICENCA.md",
     "LICENSE.md",
-    "NOTICE.md"
+    "NOTICE.md",
+    "llms.txt"
   ],
-  "sideEffects": [
-    "**/*.css"
-  ],
+  "sideEffects": false,
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   },
   "packageManager": "pnpm@10.34.9",
   "publishConfig": {
     "access": "public"
   },
-  "peerDependencies": {
-    "react": ">=19",
-    "@playwright/test": ">=1.50"
-  },
-  "peerDependenciesMeta": {
-    "react": {
-      "optional": true
-    },
-    "@playwright/test": {
-      "optional": true
-    }
-  },
   "scripts": {
-    "build": "rm -rf distribution && tsc -p tsconfig.build.json && sass --no-source-map source:distribution && node script/rewrite-style-import/index.ts",
+    "build": "rm -rf distribution && tsc -p tsconfig.build.json",
     "lint": "eslint --max-warnings=0 .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "type-check": "tsc --noEmit",
-    "test:unit": "vitest run",
+    "test:unit": "vitest run --coverage",
     "test:benchmark": "vitest bench --run --passWithNoTests",
     "documentation": "typedoc",
-    "verify": "turbo run format:check lint type-check test:unit test:benchmark build",
-    "prepare": "husky || true"
+    "verify": "turbo run format:check lint type-check test:unit build",
+    "prepare": "turborepo-configuration library && (husky || true)"
   },
   "lint-staged": {
     "*.{ts,tsx,js,mjs,cjs}": [
@@ -68,37 +52,25 @@
     "*.{json,md,yml,yaml,scss}": "prettier --write"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.5",
-    "@playwright/test": "1.65.0",
-    "@testing-library/dom": "^10.4.2",
-    "@testing-library/react": "^16.3.3",
+    "@sharadox/es-lint-configuration-web-library": "^0.1.1",
+    "@sharadox/prettier-configuration-web-library": "^0.1.0",
+    "@sharadox/turborepo-configuration-web-library": "^0.1.0",
+    "@sharadox/type-script-configuration-web-library": "^0.1.1",
+    "@sharadox/vitest-configuration-web-library": "^0.1.1",
     "@types/node": "^24.19.2",
-    "@types/react": "^19.3.0",
-    "@vitejs/plugin-react": "^6.3.0",
+    "@vitest/coverage-v8": "^5.1.0",
     "eslint": "9.39.5",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-react-hooks": "^7.1.1",
-    "happy-dom": "^21.0.4",
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
-    "next": "16.4.5",
-    "prettier": "^3.9.10",
-    "react": "^19.3.1",
-    "react-dom": "^19.3.1",
-    "sass": "^1.108.1",
+    "prettier": "^3.10.0",
     "turbo": "^2.11.10",
     "typedoc": "^0.28.20",
     "typescript": "6.0.3",
-    "typescript-eslint": "^8.72.2",
     "vitest": "^5.1.0"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Sharadox/web-library.git"
   },
-  "homepage": "https://github.com/Sharadox/web-library#readme",
-  "dependencies": {
-    "lenis": "^1.3.27",
-    "motion": "^12.43.0"
-  }
+  "homepage": "https://github.com/Sharadox/web-library#readme"
 }

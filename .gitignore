@@ -6,3 +6,5 @@ documentation/
 *.tgz
 .env*
 !.env.example
+turbo.json
+/coverage/
