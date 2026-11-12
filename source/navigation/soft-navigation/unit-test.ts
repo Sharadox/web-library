@@ -1,6 +1,7 @@
 import { afterEach, expect, test, vi } from "vitest";
 import {
   beginSoftNavigation,
+  endSoftNavigationDocument,
   isSoftNavigation,
   markSoftNavigationDocument,
   SOFT_NAVIGATION_ATTRIBUTE,
@@ -22,9 +23,13 @@ test("a soft navigation lasts its window, then ends", () => {
 
 test("marks the document for CSS, and does nothing outside a browser", () => {
   markSoftNavigationDocument();
+  endSoftNavigationDocument();
   const setAttribute = vi.fn();
-  vi.stubGlobal("document", { documentElement: { setAttribute } });
+  const removeAttribute = vi.fn();
+  vi.stubGlobal("document", { documentElement: { setAttribute, removeAttribute } });
   markSoftNavigationDocument();
   expect(setAttribute).toHaveBeenCalledWith(SOFT_NAVIGATION_ATTRIBUTE, "");
+  endSoftNavigationDocument();
+  expect(removeAttribute).toHaveBeenCalledWith(SOFT_NAVIGATION_ATTRIBUTE);
   vi.unstubAllGlobals();
 });
