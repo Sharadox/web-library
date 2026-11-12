@@ -1,4 +1,3 @@
-// @vitest-environment happy-dom
 import { afterEach, expect, test, vi } from "vitest";
 import {
   beginSoftNavigation,
@@ -21,7 +20,11 @@ test("a soft navigation lasts its window, then ends", () => {
   expect(isSoftNavigation()).toBe(true);
 });
 
-test("marks the document for CSS", () => {
+test("marks the document for CSS, and does nothing outside a browser", () => {
   markSoftNavigationDocument();
-  expect(document.documentElement.hasAttribute(SOFT_NAVIGATION_ATTRIBUTE)).toBe(true);
+  const setAttribute = vi.fn();
+  vi.stubGlobal("document", { documentElement: { setAttribute } });
+  markSoftNavigationDocument();
+  expect(setAttribute).toHaveBeenCalledWith(SOFT_NAVIGATION_ATTRIBUTE, "");
+  vi.unstubAllGlobals();
 });

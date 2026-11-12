@@ -4,6 +4,8 @@ const KEY = Symbol.for("@sharadox/web-library/soft-navigation");
 export const SOFT_NAVIGATION_ATTRIBUTE = "data-soft-navigation";
 
 type Store = { [KEY]?: number };
+/** The little of a browser document this needs (this library runs without DOM types). */
+type DocumentHost = { document?: { documentElement: { setAttribute(name: string, value: string): void } } };
 
 /**
  * Announces that the page is about to be rebuilt in place (for example switching language), so components that
@@ -30,11 +32,12 @@ export function isSoftNavigation(): boolean {
 
 /**
  * Marks the current document as rendered by a soft navigation (`<html data-soft-navigation>`), so CSS can turn off
- * time-based entrance animations for it: `:root[data-soft-navigation] .hero { animation: none }`.
+ * time-based entrance animations for it: `:root[data-soft-navigation] .hero { animation: none }`. Does nothing
+ * outside a browser.
  *
  * @example
  * markSoftNavigationDocument();
  */
 export function markSoftNavigationDocument(): void {
-  document.documentElement.setAttribute(SOFT_NAVIGATION_ATTRIBUTE, "");
+  (globalThis as DocumentHost).document?.documentElement.setAttribute(SOFT_NAVIGATION_ATTRIBUTE, "");
 }
