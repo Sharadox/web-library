@@ -10,7 +10,8 @@
 - type-guard/is-defined → isDefined(value): not null/undefined
 - class-name → classNames(...names): joins truthy names
 - html/escape → escapeHtml(text)
-- text/separate → separate(separator, ...parts): "a • b", skipping empty parts
+- text/separator → SEPARATOR "·", the one separator every Sharadox site and library uses
+- text/separate → separate(separator, ...parts): "a · b", skipping empty parts (pass SEPARATOR)
 - math/clamp, math/radians, math/pseudo-random
 - assert/never → assertNever(value): throws; for exhaustive switches
 - Import by path: `import { isString } from "@sharadox/web-library/type-guard/is-string";`
