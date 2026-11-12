@@ -5,7 +5,11 @@ export const SOFT_NAVIGATION_ATTRIBUTE = "data-soft-navigation";
 
 type Store = { [KEY]?: number };
 /** The little of a browser document this needs (this library runs without DOM types). */
-type DocumentHost = { document?: { documentElement: { setAttribute(name: string, value: string): void } } };
+type DocumentHost = {
+  document?: {
+    documentElement: { setAttribute(name: string, value: string): void; removeAttribute(name: string): void };
+  };
+};
 
 /**
  * Announces that the page is about to be rebuilt in place (for example switching language), so components that
@@ -32,7 +36,8 @@ export function isSoftNavigation(): boolean {
 
 /**
  * Marks the current document as rendered by a soft navigation (`<html data-soft-navigation>`), so CSS can turn off
- * time-based entrance animations for it: `:root[data-soft-navigation] .hero { animation: none }`. Does nothing
+ * time-based entrance animations for it while they would be playing (clear it with `endSoftNavigationDocument` once they
+ * are over, because the document can outlive the navigation): `:root[data-soft-navigation] .hero { animation: none }`. Does nothing
  * outside a browser.
  *
  * @example
@@ -40,4 +45,15 @@ export function isSoftNavigation(): boolean {
  */
 export function markSoftNavigationDocument(): void {
   (globalThis as DocumentHost).document?.documentElement.setAttribute(SOFT_NAVIGATION_ATTRIBUTE, "");
+}
+
+/**
+ * Clears the mark set by `markSoftNavigationDocument`, so entrance animations play again for content that appears
+ * later (call it once the entrances that were skipped would have finished). Does nothing outside a browser.
+ *
+ * @example
+ * setTimeout(endSoftNavigationDocument, 4000);
+ */
+export function endSoftNavigationDocument(): void {
+  (globalThis as DocumentHost).document?.documentElement.removeAttribute(SOFT_NAVIGATION_ATTRIBUTE);
 }
