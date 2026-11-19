@@ -44,6 +44,7 @@ Import each utility by its path:
 | `…/math/pseudo-random`                       | `pseudoRandom(seed)`: repeatable number in [0, 1)                                                                                                                              | `pseudoRandom(3) === pseudoRandom(3)`                      |
 | `…/assert/never`                             | `assertNever(value)`: exhaustive `switch` checks                                                                                                                               | `default: return assertNever(kind)`                        |
 | `…/navigation/soft-navigation`               | `beginSoftNavigation()`, `isSoftNavigation()`, `markSoftNavigationDocument()`, `endSoftNavigationDocument()`: a page rebuilt in place (language switch) skips entrance effects | `const [skip] = useState(isSoftNavigation)`                |
+| `…/navigation/new-tab`                       | `leavesSite(href)`, `newTab(href)`: links that leave the site (other sites, email, phone, messages, maps) open in a new tab                                                    | `<a href={href} {...newTab(href)}>`                        |
 | `…/layout/on-screen`                         | `isOnScreen(element)`: any part inside the viewport now                                                                                                                        | `if (isOnScreen(card)) …`                                  |
 
 ## Develop
