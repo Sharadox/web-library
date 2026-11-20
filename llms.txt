@@ -12,6 +12,9 @@
 - html/escape → escapeHtml(text)
 - text/separator → SEPARATOR "·", the one separator every Sharadox site and library uses
 - text/separate → separate(separator, ...parts): "a · b", skipping empty parts (pass SEPARATOR)
+- text/separated → separated(...parts): separate with SEPARATOR, the one every Sharadox text uses
+- text/two-digit → twoDigits(count): 1 → "01" (numbered lists and steps)
+- request/client-address → clientAddress(headers): first x-forwarded-for entry, or "unknown" (rate limits, abuse checks)
 - math/clamp, math/radians, math/pseudo-random
 - assert/never → assertNever(value): throws; for exhaustive switches
 - Import by path: `import { isString } from "@sharadox/web-library/type-guard/is-string";`
