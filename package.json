@@ -55,7 +55,7 @@
     "@sharadox/es-lint-configuration-web-library": "^0.1.1",
     "@sharadox/prettier-configuration-web-library": "^0.1.0",
     "@sharadox/turborepo-configuration-web-library": "^0.1.0",
-    "@sharadox/type-script-configuration-web-library": "^0.1.1",
+    "@sharadox/type-script-configuration-web-library": "^0.2.1",
     "@sharadox/vitest-configuration-web-library": "^0.1.1",
     "@types/node": "^24.19.2",
     "@vitest/coverage-v8": "^5.1.0",
