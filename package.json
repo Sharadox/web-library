@@ -1,7 +1,7 @@
 {
   "name": "@sharadox/web-library",
-  "version": "0.9.0",
-  "description": "General TypeScript utilities shared by every Sharadox library and application: type guards, class names, HTML escaping, text joining, math helpers and exhaustiveness checks.",
+  "version": "0.10.0",
+  "description": "General TypeScript utilities shared by every Sharadox library and application: type guards, class names, HTML escaping, text joining, identifiers, math helpers and exhaustiveness checks.",
   "private": false,
   "license": "SEE LICENSE IN LICENCA.md",
   "author": "Sharadox <contact@sharadox.com>",
@@ -22,7 +22,8 @@
     "LICENCA.md",
     "LICENSE.md",
     "NOTICE.md",
-    "llms.txt"
+    "llms.txt",
+    "CHANGELOG.md"
   ],
   "sideEffects": false,
   "engines": {
