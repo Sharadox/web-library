@@ -12,6 +12,7 @@
 - html/escape → escapeHtml(text)
 - text/separator → SEPARATOR "·", the one separator every Sharadox site and library uses
 - text/separate → separate(separator, ...parts): "a · b", skipping empty parts (pass SEPARATOR)
+- identifier/uuid-version-7 → uuidVersion7({ now?, random? }?): RFC 9562 UUID version 7 (48-bit millisecond time, then random; sorts by creation), e.g. a contact conversation identifier
 - text/separated → separated(...parts): separate with SEPARATOR, the one every Sharadox text uses
 - text/two-digit → twoDigits(count): 1 → "01" (numbered lists and steps)
 - request/client-address → clientAddress(headers): first x-forwarded-for entry, or "unknown" (rate limits, abuse checks)
