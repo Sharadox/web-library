@@ -53,11 +53,11 @@
     "*.{json,md,yml,yaml,scss}": "prettier --write"
   },
   "devDependencies": {
-    "@sharadox/es-lint-configuration-web-library": "^0.1.1",
-    "@sharadox/prettier-configuration-web-library": "^0.1.0",
-    "@sharadox/turborepo-configuration-web-library": "^0.1.0",
-    "@sharadox/type-script-configuration-web-library": "^0.2.1",
-    "@sharadox/vitest-configuration-web-library": "^0.1.1",
+    "@sharadox/es-lint-configuration-web-library": "^0.1.2",
+    "@sharadox/prettier-configuration-web-library": "^0.1.1",
+    "@sharadox/turborepo-configuration-web-library": "^0.1.3",
+    "@sharadox/type-script-configuration-web-library": "^0.2.2",
+    "@sharadox/vitest-configuration-web-library": "^0.2.0",
     "@types/node": "^24.19.2",
     "@vitest/coverage-v8": "^5.1.0",
     "eslint": "9.39.5",
