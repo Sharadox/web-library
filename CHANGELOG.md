@@ -2,6 +2,10 @@
 
 What changed in each version of `@sharadox/web-library`, newest first.
 
+## 0.11.1
+
+Workflows from git-hub-action-library v0.2.2: npm Trusted Publishing only
+
 ## 0.11.0
 
 `graphics/web-gl-support`: `supportsWebGl()` (moved from globe-web-library), so every WebGL scene can fall back to a still picture instead of failing to start.
