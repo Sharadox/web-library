@@ -22,5 +22,5 @@
 - Import by path: `import { isString } from "@sharadox/web-library/type-guard/is-string";`
 - License: Sharadox Open Source License 0.1.0
 - navigation/soft-navigation: beginSoftNavigation(ms=2000), isSoftNavigation() (shared on globalThis), markSoftNavigationDocument() + SOFT_NAVIGATION_ATTRIBUTE ("data-soft-navigation") — lets components skip entrance effects when a page is rebuilt in place (language switch)
-- navigation/new-tab: leavesSite(href) (any scheme like https:, mailto:, tel:, sms:, or //host) and newTab(href) → { target: "_blank", rel: "noopener noreferrer" } or {} — every Sharadox site opens links that leave it in a new tab
+- navigation/new-tab: leavesSite(href, { domains? }) (any scheme like https:, mailto:, tel:, sms:, or //host, except web addresses on `domains` or their subdomains) and newTab(href, { domains? }) → { target: "_blank", rel: "noopener noreferrer" } or {} — every Sharadox site opens links that leave it in a new tab
 - navigation/soft-navigation endSoftNavigationDocument() clears the mark (the <html> element can outlive the navigation); layout/on-screen isOnScreen(element)
