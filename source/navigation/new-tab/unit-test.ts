@@ -22,3 +22,25 @@ test("the site's own pages, sections and relative addresses stay", () => {
     expect(newTab(href)).toEqual({});
   }
 });
+
+test("addresses on the site's own domains, and any of their subdomains, stay in the same tab", () => {
+  const domains = ["luispiresdecor.com", "luispiresdecor.sharadox.com"];
+  for (const href of [
+    "https://luispiresdecor.com/en",
+    "https://account.luispiresdecor.com/en/sign-in",
+    "https://development.account.luispiresdecor.sharadox.com/en",
+    "//luispiresdecor.com/en",
+    "https://LuisPiresDecor.com",
+  ]) {
+    expect(leavesSite(href, { domains })).toBe(false);
+    expect(newTab(href, { domains })).toEqual({});
+  }
+  for (const href of [
+    "https://notluispiresdecor.com",
+    "https://luispiresdecor.com.example.com",
+    "https://sharadox.com",
+    "mailto:contact@luispiresdecor.com",
+    "http://[invalid",
+  ])
+    expect(newTab(href, { domains })).toEqual({ target: "_blank", rel: "noopener noreferrer" });
+});

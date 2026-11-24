@@ -2,6 +2,10 @@
 
 What changed in each version of `@sharadox/web-library`, newest first.
 
+## 0.12.0
+
+newTab and leavesSite take the site's own domains: links to them and their subdomains stay in the same tab.
+
 ## 0.11.1
 
 Workflows from git-hub-action-library v0.2.2: npm Trusted Publishing only
